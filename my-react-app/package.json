@@ -6,13 +6,27 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "rm:all": "rm -rf node_modules .next out dist build",
+    "re:start": "yarn rm:all && yarn install && yarn dev",
+    "re:build": "yarn rm:all && yarn install && yarn build",
+    "re:build-npm": "npm run rm:all && npm install && npm run build",
+    "dev:host": "vite --host",
+    "vite:start": "vite",
+    "vite:build": "vite build",
+    "re:dev-npm": "npm run rm:all && npm install && vite --host"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.15.13",
+    "@mui/lab": "^5.0.0-alpha.147",
+    "@mui/material": "^5.15.13",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.4",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
@@ -26,9 +40,11 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-perfectionist": "^2.6.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-unused-imports": "^3.1.0",
     "vite": "^5.1.6"
   }
 }

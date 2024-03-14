@@ -10,9 +10,7 @@ import { RouterLink } from 'src/routes/components';
 export default function NotFoundView() {
 
   return (
-    <>
-
-      <Container>
+    <Container>
         <Box
           sx={{
             py: 12,
@@ -50,6 +48,5 @@ export default function NotFoundView() {
           </Button>
         </Box>
       </Container>
-    </>
   );
 }
