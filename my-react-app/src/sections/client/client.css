@@ -1,5 +1,5 @@
 :root {
-    --orange-btn: '#e29933';
+    --orange-btn: "red";
   }
 
 .btn-edit{
@@ -12,4 +12,11 @@
 .btn-edit:hover{
     color: #ffffff;
     background-color: var(--orange-btn);;
+}
+
+.btn-client{
+    color: var(--orange-btn);
+    background-color: transparent;
+    border: 1px solid var(--orange-btn);
+    border-radius: 5px;
 }
