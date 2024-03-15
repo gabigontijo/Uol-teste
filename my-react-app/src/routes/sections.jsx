@@ -1,8 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
-export const ClientPage = lazy(() => import('src/pages/client'));
-export const Page404 = lazy(() => import('src/pages/page-not-found'));
+import DashboardLayout from '../layouts/dashboard';
+
+export const ClientPage = lazy(() => import('../pages/client'));
+export const Page404 = lazy(() => import('../pages/page-not-found'));
 
 // ----------------------------------------------------------------------
 
@@ -10,9 +12,11 @@ export default function Router() {
   const routes = useRoutes([
     {
       element: (
+        <DashboardLayout>
           <Suspense>
             <Outlet />
           </Suspense>
+          </DashboardLayout>
       ),
       children: [
         { path: 'cliente', element: <ClientPage /> },

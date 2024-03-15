@@ -1,10 +1,8 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import Router from 'src/routes/sections';
-
-import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
-
-import ThemeProvider from 'src/theme';
+import ThemeProvider from './theme';
+import Router from './routes/sections';
+import { useScrollToTop } from './hooks/use-scroll-to-top';
 
 const queryClient = new QueryClient();
 
