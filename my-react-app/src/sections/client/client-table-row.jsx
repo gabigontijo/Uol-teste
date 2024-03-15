@@ -1,6 +1,5 @@
 
 import Box from "@mui/material/Box";
-// import { makeStyles } from "@mui/styles";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -38,10 +37,18 @@ const rows = [
   },
 ];
 
-export default function CustomTable() {
+export default function ClientTable() {
 
   return (
     <div>
+      <Box mb={4} mt={4}>
+      <Typography variant="subtitle1">
+             Listagem de usuários
+            </Typography>
+            <Typography variant="body1">
+              Escolha um cliente para visualizar os detalhes
+            </Typography>
+      </Box>
       {rows.map((row, index) => (
         <Stack display='flex' direction='row' alignItems='center' p={3} border={1} borderColor={grey[10]} key={index} mb={2.5}>
           <Box width="40%">
