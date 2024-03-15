@@ -9,6 +9,9 @@ import Container from '@mui/material/Container';
 // import TableBody from '@mui/material/TableBody';
 // import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+
+import '../client.css';
+import DataTable from '../client-table-row';
 // import TableContainer from '@mui/material/TableContainer';
 // import TablePagination from '@mui/material/TablePagination';
 // import CircularProgress from '@mui/material/CircularProgress';
@@ -162,8 +165,8 @@ export default function ClientPage() {
 
   return (
     <Container>
-        <div>testeeeeeeeeeeeeeeeeeeee</div>
-        <Typography variant="h4">Clientes</Typography>
+        <Typography borderColor='#F1F1F1' variant="h4"> Painel de clientes</Typography>
+        <DataTable/>
     </Container>
   );
 }
