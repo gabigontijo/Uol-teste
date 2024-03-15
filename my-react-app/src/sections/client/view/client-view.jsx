@@ -1,17 +1,19 @@
-// import { useState } from 'react';
+import { useState } from "react";
 // import { useQuery } from "react-query";
 
-// import Card from '@mui/material/Card';
-// import Stack from '@mui/material/Stack';
-// import Table from '@mui/material/Table';
-// import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 // import TableBody from '@mui/material/TableBody';
+import Box from "@mui/material/Box";
+// import Card from '@mui/material/Card';
+import Stack from "@mui/material/Stack";
+// import Table from '@mui/material/Table';
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
 // import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 
-import '../client.css';
-import DataTable from '../client-table-row';
+import "../client.css";
+import ClientTable from "../client-table-row";
+import FormNewClient from "../form-new-client";
 // import TableContainer from '@mui/material/TableContainer';
 // import TablePagination from '@mui/material/TablePagination';
 // import CircularProgress from '@mui/material/CircularProgress';
@@ -34,139 +36,175 @@ import DataTable from '../client-table-row';
 // ----------------------------------------------------------------------
 
 export default function ClientPage() {
-//   const [page, setPage] = useState(0);
+  //   const [page, setPage] = useState(0);
 
-//   const [order, setOrder] = useState('asc');
+  //   const [order, setOrder] = useState('asc');
 
-//   const [selected, setSelected] = useState([]);
+  //   const [selected, setSelected] = useState([]);
 
-//   const [orderBy, setOrderBy] = useState('name');
+  //   const [orderBy, setOrderBy] = useState('name');
 
-//   const [filterName, setFilterName] = useState('');
+  //   const [filterName, setFilterName] = useState('');
 
-//   const [rowsPerPage, setRowsPerPage] = useState(5);
+  //   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-//   const [newUser, setNewUser] = useState(false);
+  // const [newClient, setNewClient] = useState(false);
+  const [renderForm, setRenderForm] = useState(false);
 
-//   const [alert, setAlert] = useState(false);
+  //   const [alert, setAlert] = useState(false);
 
-//   const [alertError, setAlertError] = useState(false);
+  //   const [alertError, setAlertError] = useState(false);
 
-//   const [messageError, setMessageError] = useState('');
+  //   const [messageError, setMessageError] = useState('');
 
-//   const [messageAlert, setMessageAlert] = useState('');
+  //   const [messageAlert, setMessageAlert] = useState('');
 
-//   const [clientId, setClientId] = useState(null);
+    const [clientId, setClientId] = useState(null);
 
-//   const [openDialog, setOpenDialog] = useState(false);
+  //   const [openDialog, setOpenDialog] = useState(false);
 
-//   const [clientList, setClientList] = useState([]);
+  //   const [clientList, setClientList] = useState([]);
 
-//   const [stateClient, setStateClient] = useState( clientInterface);
+  //   const [stateClient, setStateClient] = useState( clientInterface);
 
-//   const {isLoading, refetch: refetchClients} = useQuery("allClients", allClients, {
-//     onSuccess: (response) => {
-//       setClientList(response.Clients);
-//     },
-//     onError: (error) => {
-//       console.error('Erro ao carregar clientes:', error);
-//     }
-//   });
+  //   const {isLoading, refetch: refetchClients} = useQuery("allClients", allClients, {
+  //     onSuccess: (response) => {
+  //       setClientList(response.Clients);
+  //     },
+  //     onError: (error) => {
+  //       console.error('Erro ao carregar clientes:', error);
+  //     }
+  //   });
 
-//   const handleSort = (event, id) => {
-//     const isAsc = orderBy === id && order === 'asc';
-//     if (id !== '') {
-//       setOrder(isAsc ? 'desc' : 'asc');
-//       setOrderBy(id);
-//     }
-//   };
+  //   const handleSort = (event, id) => {
+  //     const isAsc = orderBy === id && order === 'asc';
+  //     if (id !== '') {
+  //       setOrder(isAsc ? 'desc' : 'asc');
+  //       setOrderBy(id);
+  //     }
+  //   };
 
-//   const handleSelectAllClick = (event) => {
-//     if (event.target.checked) {
-//       const newSelecteds = clientList.map((n) => ({
-//         name: n.name,
-//         id: n.id,
-//       }));
-//       setSelected(newSelecteds);
-//       return;
-//     }
-//     setSelected([]);
-//   };
+  //   const handleSelectAllClick = (event) => {
+  //     if (event.target.checked) {
+  //       const newSelecteds = clientList.map((n) => ({
+  //         name: n.name,
+  //         id: n.id,
+  //       }));
+  //       setSelected(newSelecteds);
+  //       return;
+  //     }
+  //     setSelected([]);
+  //   };
 
-//   const handleClick = (event, name, id) => {
-//     const selectedIndex = selected.findIndex((item) => item.name === name);
+  //   const handleClick = (event, name, id) => {
+  //     const selectedIndex = selected.findIndex((item) => item.name === name);
 
-//     let newSelected = [];
+  //     let newSelected = [];
 
-//     if (selectedIndex === -1) {
-//       newSelected = [...selected, { name, id }];
-//     } else {
-//       newSelected = selected.filter((item) => item.name !== name);
-//     }
+  //     if (selectedIndex === -1) {
+  //       newSelected = [...selected, { name, id }];
+  //     } else {
+  //       newSelected = selected.filter((item) => item.name !== name);
+  //     }
 
-//     setSelected(newSelected);
-//   };
+  //     setSelected(newSelected);
+  //   };
 
-//   const handleChangePage = (event, newPage) => {
-//     setPage(newPage);
-//   };
+  //   const handleChangePage = (event, newPage) => {
+  //     setPage(newPage);
+  //   };
 
-//   const handleChangeRowsPerPage = (event) => {
-//     setPage(0);
-//     setRowsPerPage(parseInt(event.target.value, 10));
-//   };
+  //   const handleChangeRowsPerPage = (event) => {
+  //     setPage(0);
+  //     setRowsPerPage(parseInt(event.target.value, 10));
+  //   };
 
-//   const handleFilterByName = (event) => {
-//     setPage(0);
-//     setFilterName(event.target.value);
-//   };
+  //   const handleFilterByName = (event) => {
+  //     setPage(0);
+  //     setFilterName(event.target.value);
+  //   };
 
-//   const handleAddUser = () => {
-//     setNewUser(true);
-//   };
+  //   const handleAddUser = () => {
+  //     setNewUser(true);
+  //   };
 
-//   const handleCloseAdd = () => {
-//     setNewUser(false);
-//     setClientId(null);
-//     setStateClient(clientInterface);
-//   };
+  //   const handleCloseAdd = () => {
+  //     setNewUser(false);
+  //     setClientId(null);
+  //     setStateClient(clientInterface);
+  //   };
 
-//   const dataFiltered = applyFilter({
-//     inputData: clientList,
-//     comparator: getComparator(order, orderBy),
-//     filterName,
-//     field: 'name',
-//   });
+  //   const dataFiltered = applyFilter({
+  //     inputData: clientList,
+  //     comparator: getComparator(order, orderBy),
+  //     filterName,
+  //     field: 'name',
+  //   });
 
-//   const handleDelete = async () => {
-//     try {
-//       const results = await Promise.all(
-//         selected.map(async (client) => {
-//           const result = await deleteClient(client.id);
-//           return result;
-//         })
-//       );
-//       console.log(results);
-//       setAlert(true);
-//       setMessageAlert('Cliente deletado com sucesso');
-//       setOpenDialog(false);
-//       setSelected([]);
-//       refetchClients();
-//     } catch (error) {
-//       console.error('Erro ao excluir clientes:', error);
-//       setAlertError(true);
-//       setMessageError('Erro ao excluir clientes');
-//       setOpenDialog(false);
-//       setSelected([]);
-//     }
-//   };
+  //   const handleDelete = async () => {
+  //     try {
+  //       const results = await Promise.all(
+  //         selected.map(async (client) => {
+  //           const result = await deleteClient(client.id);
+  //           return result;
+  //         })
+  //       );
+  //       console.log(results);
+  //       setAlert(true);
+  //       setMessageAlert('Cliente deletado com sucesso');
+  //       setOpenDialog(false);
+  //       setSelected([]);
+  //       refetchClients();
+  //     } catch (error) {
+  //       console.error('Erro ao excluir clientes:', error);
+  //       setAlertError(true);
+  //       setMessageError('Erro ao excluir clientes');
+  //       setOpenDialog(false);
+  //       setSelected([]);
+  //     }
+  //   };
 
-//   const notFound = !dataFiltered.length && !!filterName;
+  //   const notFound = !dataFiltered.length && !!filterName;
+
+  const handleNewClient = () => {
+    setRenderForm(true);
+  };
 
   return (
     <Container>
-        <Typography borderColor='#F1F1F1' variant="h4"> Painel de clientes</Typography>
-        <DataTable/>
+      <Typography borderColor="#F1F1F1" borderBottom={1} pb={2} variant="h4">
+        Painel de clientes
+      </Typography>
+      {!renderForm ? (
+        <>
+          <Stack
+            direction="row"
+            alignContent="center"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box mb={4} mt={4}>
+              <Typography variant="subtitle1">Listagem de usuários</Typography>
+              <Typography variant="body1">
+                Escolha um cliente para visualizar os detalhes
+              </Typography>
+            </Box>
+            <Box>
+              <Button fullWidth onClick={handleNewClient}>
+                Novo cliente
+              </Button>
+            </Box>
+          </Stack>
+          <ClientTable />
+        </>
+      ) : (
+        <FormNewClient
+        setRenderForm={setRenderForm}
+        renderForm={renderForm}
+        clientId={clientId}
+        setClientId={setClientId}
+         />
+      )}
     </Container>
   );
 }
