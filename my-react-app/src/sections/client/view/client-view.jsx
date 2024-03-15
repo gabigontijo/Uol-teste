@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 // import CloseIcon from '@mui/icons-material/Close';
 import Typography from "@mui/material/Typography";
 
-import "../client.css";
+
 import ClientTable from "../client-table-row";
 import FormNewClient from "../form-new-client";
 // import TableContainer from '@mui/material/TableContainer';
@@ -32,6 +32,9 @@ import FormNewClient from "../form-new-client";
 // import TableToolbar from '../../common/table-toolbar';
 // import TableEmptyRows from '../../common/table-empty-rows';
 // import { emptyRows, applyFilter, getComparator } from '../../utils';
+import user from '../../../assets/images/user.png'
+import { grey } from "../../../theme/palette";
+import "../client.css";
 
 // ----------------------------------------------------------------------
 
@@ -172,9 +175,19 @@ export default function ClientPage() {
 
   return (
     <Container>
-      <Typography borderColor="#F1F1F1" borderBottom={1} pb={2} variant="h4">
+      <Stack direction='row'  sx={{ borderColor: grey[500] }} borderBottom={1.5} alignItems="center" pb={2}>
+      <Box
+            component="img"
+            src={user}
+            sx={{
+              height: 40,
+              mr: 2
+            }}
+          />
+      <Typography variant="h4" sx={{ color: 'text.primary' }}>
         Painel de clientes
       </Typography>
+      </Stack>
       {!renderForm ? (
         <>
           <Stack
@@ -184,13 +197,13 @@ export default function ClientPage() {
             alignItems="center"
           >
             <Box mb={4} mt={4}>
-              <Typography variant="subtitle1">Listagem de usuários</Typography>
-              <Typography variant="body1">
+              <Typography variant="subtitle1"  sx={{ color: 'text.secondary' }} >Listagem de usuários</Typography>
+              <Typography variant="body1"  sx={{ color: 'text.common' }}>
                 Escolha um cliente para visualizar os detalhes
               </Typography>
             </Box>
             <Box>
-              <Button fullWidth onClick={handleNewClient}>
+              <Button fullWidth onClick={handleNewClient} className="btn-client">
                 Novo cliente
               </Button>
             </Box>

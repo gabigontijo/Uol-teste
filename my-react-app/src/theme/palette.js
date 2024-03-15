@@ -5,14 +5,14 @@ import { alpha } from '@mui/material/styles';
 // SETUP COLORS
 
 export const grey = {
-  0: '#FFFFFF',
-  10: '#F1F1F1',
-  20: '#363636',
+  0: '#333333',
+  10: '#697078',
+  20: '#ABABAB',
   100: '#F9FAFB',
   200: '#F4F6F8',
   300: '#DFE3E8',
   400: '#C4CDD5',
-  500: '#919EAB',
+  500: '#e5e5e5',
   600: '#637381',
   700: '#454F5B',
   800: '#212B36',
@@ -108,8 +108,8 @@ export function palette() {
     ...base,
     mode: 'light',
     text: {
-      primary: grey[800],
-      secondary: grey[600],
+      primary: grey[0],
+      secondary: grey[10],
       disabled: grey[500],
       common: grey[20],
     },

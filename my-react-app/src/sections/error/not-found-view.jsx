@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
+import notFound from '../../assets/images/not-found.png';
 
 // ----------------------------------------------------------------------
 
@@ -32,18 +33,17 @@ export default function NotFoundView() {
             Lamentamos, mas não conseguimos encontrar a página que procura. Talvez você tenha digitado incorretamente o URL? Ser
             certifique-se de verificar sua ortografia.
           </Typography>
-
           <Box
             component="img"
-            src="/assets/illustration_404.svg"
+            src={notFound}
             sx={{
               mx: 'auto',
-              height: 260,
+              height: 360,
               my: { xs: 5, sm: 10 },
             }}
           />
 
-          <Button href="/" size="large" variant="contained" component={RouterLink}>
+          <Button href="/cliente" size="large" variant="contained" component={RouterLink}>
             Voltar ao início
           </Button>
         </Box>
