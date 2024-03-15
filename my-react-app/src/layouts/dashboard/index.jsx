@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 
 import Main from './main';
+import Header from './header';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardLayout({ children }) {
   return (
+
+    <>
+    <Header/>
     <Box
       sx={{
         minHeight: 1,
@@ -17,6 +21,7 @@ export default function DashboardLayout({ children }) {
     >
       <Main>{children}</Main>
     </Box>
+    </>
   );
 }
 
