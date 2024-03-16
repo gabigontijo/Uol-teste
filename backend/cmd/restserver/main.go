@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gabigontijo/uol-teste-be/config"
-	"github.com/gabigontijo/uol-teste-be/internal/infra/di"
-	"github.com/gabigontijo/uol-teste-be/services"
+	"github.com/gabigontijo/Uol-teste/config"
+	"github.com/gabigontijo/Uol-teste/internal/infra/di"
+	"github.com/gabigontijo/Uol-teste/services"
 )
 
 func main() {

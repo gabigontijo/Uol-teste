@@ -1,4 +1,4 @@
-module github.com/gabigontijo/uol-teste-be
+module github.com/gabigontijo/Uol-teste
 
 go 1.18
 

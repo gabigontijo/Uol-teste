@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gabigontijo/uol-teste-be/internal/repositories"
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/contracts"
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/ports/output"
+	"github.com/gabigontijo/Uol-teste/internal/repositories"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/contracts"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/output"
 )
 
 type findClientByIDUseCase struct {

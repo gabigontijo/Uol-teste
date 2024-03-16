@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/contracts"
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/ports/input"
-	"github.com/gabigontijo/uol-teste-be/utils"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/contracts"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/input"
+	"github.com/gabigontijo/Uol-teste/utils"
 	"github.com/gorilla/mux"
 )
 

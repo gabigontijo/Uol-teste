@@ -3,7 +3,7 @@ package repositories
 import (
 	"context"
 
-	"github.com/gabigontijo/uol-teste-be/internal/domain/entities"
+	"github.com/gabigontijo/Uol-teste/internal/domain/entities"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

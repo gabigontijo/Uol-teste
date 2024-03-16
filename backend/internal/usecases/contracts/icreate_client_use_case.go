@@ -3,8 +3,8 @@ package contracts
 import (
 	"context"
 
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/ports/input"
-	"github.com/gabigontijo/uol-teste-be/internal/usecases/ports/output"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/input"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/output"
 )
 
 type CreateClientUseCase interface {

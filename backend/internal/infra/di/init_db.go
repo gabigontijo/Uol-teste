@@ -1,8 +1,8 @@
 package di
 
 import (
-	"github.com/gabigontijo/uol-teste-be/config"
-	"github.com/gabigontijo/uol-teste-be/internal/domain/entities"
+	"github.com/gabigontijo/Uol-teste/config"
+	"github.com/gabigontijo/Uol-teste/internal/domain/entities"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
