@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <Box bgcolor='#333333' width='100%' height='10%' display="flex" alignItems='center' justifyContent='center'>
-        <img src={uolLogo} alt="uol logo" height={30} color='white'/>
+        <img src={uolLogo} alt="uol logo" height={35} color='white' style={{ maxHeight: '100%' }}/>
     </Box>
     
   );
