@@ -21,7 +21,6 @@ export const allClients = async () => {
 };
 
 export const clientById = async (clientId) => {
-
   const ENDPOINT = `${URlClients}/${clientId}`;
   const response = await fetch(ENDPOINT);
   const result = await response.json();

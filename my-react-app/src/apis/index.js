@@ -6,7 +6,6 @@ export const apiFetch = async (url, options) => {
     return res;
   };
   
- 
   export const getHeaders = (extraheaders) => {
     const headers = {
       'cash-control': 'no-store',
