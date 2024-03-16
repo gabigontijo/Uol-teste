@@ -1,7 +1,5 @@
 import { apiFetch, getHeaders } from '..';
 
-// const URlClients = 'http://195.35.16.37:81/cashbycard/clients';
-// const URlClients = 'http://localhost/cashbycard/clients';
 const URlClients = '/clients';
 
 export const createClient = async (client) => {
