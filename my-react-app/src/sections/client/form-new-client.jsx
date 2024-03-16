@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from "prop-types";
 // import { useQuery } from "react-query";
 
@@ -12,13 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 // import Autocomplete from '@mui/material/Autocomplete';
 
-// import { createClient, updateClient } from 'src/apis/client';
-
 import Typography from "@mui/material/Typography";
 
-import MaskFields from "./mask-field";
+import MaskFields from "../common/mask-field";
 import { clientInterface } from './view/type';
-// import { clientInterface } from './view/type';
+import { createClient } from '../../apis/client';
 // import SelectPixFields from '../common/input-select-pix';
 // import InputFileUpload from '../common/input-upload-file';
 
@@ -44,44 +41,32 @@ const statusCurrencies = [
 ];
 
 export default function FormNewClient({
-    setNewClient,
     setAlert,
     setAlertError,
-    setNextStep,
     setMessageError,
     setMessageAlert,
     clientId,
     setClientId,
     refetchClients,
-    // stateClient: client,
-    setStateClient,
+    client,
+    setClient,
     setRenderForm,
 }) {
 
-    const [client, setClient] = useState(clientInterface);
-
       const handleSubmit = async () => {
         try {
-          const bodyClient = {
-            name: client.name,
-            email: client.email,
-            phone: client.phone,
-            cpf: client.cpf,
-            status: client.status,
-          };
-        //   await createClient(bodyClient);
-        //   setAlert(true);
-        //   setMessageAlert('Cliente cadastrado com sucesso');
-        //   setNewUser(false);
-        //   setClient(clientInterface)
-        //   refetchClients();
-        console.log('bodyClient', bodyClient)
+          await createClient(client);
+          setAlert(true);
+          setMessageAlert('Cliente cadastrado com sucesso');
+          setRenderForm(false);
+          setClient(clientInterface)
+          refetchClients();
         console.log('state client', client)
         } catch (error) {
         //   // eslint-disable-next-line no-debugger
         //   debugger;
-        //   setAlertError(true);
-        //   setMessageError('Erro ao Cadastrar o cliente');
+          setAlertError(true);
+          setMessageError('Erro ao Cadastrar o cliente');
           console.log('Erro ao Cadastrar o cliente:', error);
         }
       };
@@ -260,16 +245,14 @@ export default function FormNewClient({
 }
 
 FormNewClient.propTypes = {
-    setNewClient: PropTypes.func,
     setAlert: PropTypes.func,
     setAlertError: PropTypes.func,
-    setNextStep: PropTypes.func,
     setMessageError: PropTypes.func,
     setMessageAlert: PropTypes.func,
     setClientId: PropTypes.func,
     clientId: PropTypes.any,
     refetchClients: PropTypes.func,
-    // stateClient: PropTypes.any,
-    setStateClient: PropTypes.func,
+    client: PropTypes.any,
+    setClient: PropTypes.func,
     setRenderForm: PropTypes.func,
 };

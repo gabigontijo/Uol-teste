@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 // import TableBody from '@mui/material/TableBody';
 import Box from "@mui/material/Box";
@@ -10,31 +10,24 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 // import CloseIcon from '@mui/icons-material/Close';
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
+import { allClients } from "src/apis/client";
 
 import ClientTable from "../client-table-row";
 import FormNewClient from "../form-new-client";
 // import TableContainer from '@mui/material/TableContainer';
 // import TablePagination from '@mui/material/TablePagination';
-// import CircularProgress from '@mui/material/CircularProgress';
 
-// import { allClients, deleteClient } from 'src/apis/client';
 // import AlertNotifications from 'src/layouts/dashboard/common/alert-notifications';
 
 // import Iconify from 'src/components/iconify';
 // import Scrollbar from 'src/components/scrollbar';
 
-// import { clientInterface } from './type';
-// import FormNewClient from '../form-new-client';
-// import ClientTableRow from '../client-table-row';
-// import TableNoData from '../../common/table-no-data';
-// import ComoonTableHead from '../../common/table-head';
-// import TableToolbar from '../../common/table-toolbar';
-// import TableEmptyRows from '../../common/table-empty-rows';
-// import { emptyRows, applyFilter, getComparator } from '../../utils';
-import user from '../../../assets/images/user.png'
-import { grey } from "../../../theme/palette";
 import "../client.css";
+import { clientInterface } from "./type";
+import { grey } from "../../../theme/palette";
+import user from "../../../assets/images/user.png";
 
 // ----------------------------------------------------------------------
 
@@ -51,9 +44,6 @@ export default function ClientPage() {
 
   //   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // const [newClient, setNewClient] = useState(false);
-  const [renderForm, setRenderForm] = useState(false);
-
   //   const [alert, setAlert] = useState(false);
 
   //   const [alertError, setAlertError] = useState(false);
@@ -61,43 +51,24 @@ export default function ClientPage() {
   //   const [messageError, setMessageError] = useState('');
 
   //   const [messageAlert, setMessageAlert] = useState('');
-
-    const [clientId, setClientId] = useState(null);
-
   //   const [openDialog, setOpenDialog] = useState(false);
 
-  //   const [clientList, setClientList] = useState([]);
-
-  //   const [stateClient, setStateClient] = useState( clientInterface);
-
-  //   const {isLoading, refetch: refetchClients} = useQuery("allClients", allClients, {
-  //     onSuccess: (response) => {
-  //       setClientList(response.Clients);
-  //     },
-  //     onError: (error) => {
-  //       console.error('Erro ao carregar clientes:', error);
-  //     }
-  //   });
-
-  //   const handleSort = (event, id) => {
-  //     const isAsc = orderBy === id && order === 'asc';
-  //     if (id !== '') {
-  //       setOrder(isAsc ? 'desc' : 'asc');
-  //       setOrderBy(id);
-  //     }
-  //   };
-
-  //   const handleSelectAllClick = (event) => {
-  //     if (event.target.checked) {
-  //       const newSelecteds = clientList.map((n) => ({
-  //         name: n.name,
-  //         id: n.id,
-  //       }));
-  //       setSelected(newSelecteds);
-  //       return;
-  //     }
-  //     setSelected([]);
-  //   };
+  const [renderForm, setRenderForm] = useState(false);
+  const [clientId, setClientId] = useState(null);
+  const [clientList, setClientList] = useState([]);
+  const [client, setClient] = useState(clientInterface);
+  const { isLoading, refetch: refetchClients } = useQuery(
+    "allClients",
+    allClients,
+    {
+      onSuccess: (response) => {
+        setClientList(response.Clients);
+      },
+      onError: (error) => {
+        console.error("Erro ao carregar clientes:", error);
+      },
+    }
+  );
 
   //   const handleClick = (event, name, id) => {
   //     const selectedIndex = selected.findIndex((item) => item.name === name);
@@ -144,29 +115,6 @@ export default function ClientPage() {
   //     field: 'name',
   //   });
 
-  //   const handleDelete = async () => {
-  //     try {
-  //       const results = await Promise.all(
-  //         selected.map(async (client) => {
-  //           const result = await deleteClient(client.id);
-  //           return result;
-  //         })
-  //       );
-  //       console.log(results);
-  //       setAlert(true);
-  //       setMessageAlert('Cliente deletado com sucesso');
-  //       setOpenDialog(false);
-  //       setSelected([]);
-  //       refetchClients();
-  //     } catch (error) {
-  //       console.error('Erro ao excluir clientes:', error);
-  //       setAlertError(true);
-  //       setMessageError('Erro ao excluir clientes');
-  //       setOpenDialog(false);
-  //       setSelected([]);
-  //     }
-  //   };
-
   //   const notFound = !dataFiltered.length && !!filterName;
 
   const handleNewClient = () => {
@@ -175,19 +123,26 @@ export default function ClientPage() {
 
   return (
     <Container>
-      <Stack direction='row'  sx={{ borderColor: grey[500] }} borderBottom={1.5} alignItems="center" pb={2}>
-      <Box
-            component="img"
-            src={user}
-            sx={{
-              height: 40,
-              mr: 2
-            }}
-          />
-      <Typography variant="h4" sx={{ color: 'text.primary' }}>
-        Painel de clientes
-      </Typography>
+      <Stack
+        direction="row"
+        sx={{ borderColor: grey[500] }}
+        borderBottom={1.5}
+        alignItems="center"
+        pb={2}
+      >
+        <Box
+          component="img"
+          src={user}
+          sx={{
+            height: 40,
+            mr: 2,
+          }}
+        />
+        <Typography variant="h4" sx={{ color: "text.primary" }}>
+          Painel de clientes
+        </Typography>
       </Stack>
+
       {!renderForm ? (
         <>
           <Stack
@@ -198,27 +153,47 @@ export default function ClientPage() {
             pr={4}
             pl={4}
           >
-            <Box mb={4} mt={4} width='90%'>
-              <Typography variant="subtitle1"  sx={{ color: 'text.secondary' }} >Listagem de usuários</Typography>
-              <Typography variant="body1"  sx={{ color: 'text.common' }}>
+            <Box mb={4} mt={4} width="90%">
+              <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
+                Listagem de usuários
+              </Typography>
+              <Typography variant="body1" sx={{ color: "text.common" }}>
                 Escolha um cliente para visualizar os detalhes
               </Typography>
             </Box>
-            <Box width='12%'>
-              <Button fullWidth color="primary" variant='contained' onClick={handleNewClient} className="btn-client" >
+
+            <Box width="12%">
+              <Button
+                fullWidth
+                color="primary"
+                variant="contained"
+                onClick={handleNewClient}
+                className="btn-client"
+              >
                 Novo cliente
               </Button>
             </Box>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            mb={3}
+          >
+            {isLoading && <CircularProgress />}
           </Stack>
           <ClientTable />
         </>
       ) : (
         <FormNewClient
-        setRenderForm={setRenderForm}
-        renderForm={renderForm}
-        clientId={clientId}
-        setClientId={setClientId}
-         />
+          setRenderForm={setRenderForm}
+          renderForm={renderForm}
+          clientId={clientId}
+          setClientId={setClientId}
+          client={client}
+          refetchClients={refetchClients}
+          setClient={setClient}
+        />
       )}
     </Container>
   );

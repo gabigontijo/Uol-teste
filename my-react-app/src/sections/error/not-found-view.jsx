@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
+
 import notFound from '../../assets/images/not-found.png';
 
 // ----------------------------------------------------------------------
