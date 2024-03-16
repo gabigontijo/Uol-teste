@@ -195,15 +195,17 @@ export default function ClientPage() {
             alignContent="center"
             justifyContent="space-between"
             alignItems="center"
+            pr={4}
+            pl={4}
           >
-            <Box mb={4} mt={4}>
+            <Box mb={4} mt={4} width='90%'>
               <Typography variant="subtitle1"  sx={{ color: 'text.secondary' }} >Listagem de usuários</Typography>
               <Typography variant="body1"  sx={{ color: 'text.common' }}>
                 Escolha um cliente para visualizar os detalhes
               </Typography>
             </Box>
-            <Box>
-              <Button fullWidth onClick={handleNewClient} className="btn-client">
+            <Box width='12%'>
+              <Button fullWidth color="primary" variant='contained' onClick={handleNewClient} className="btn-client" >
                 Novo cliente
               </Button>
             </Box>

@@ -136,10 +136,10 @@ export default function FormNewClient({
         <>
             <Stack spacing={{ xs: 1, sm: 2 }}>
                 <Box width="100%">
-                    <Typography mt={4} variant="subtitle1">
+                    <Typography mt={4} variant="subtitle1"  sx={{ color: 'text.secondary' }} >
                        {clientId === null  ? 'Novo usário' : 'Editar usuário'} 
                     </Typography>
-                    <Typography mb={4} variant="body1">
+                    <Typography mb={4} variant="body1"  sx={{ color: 'text.common' }} >
                     {clientId === null  ? 'Informe os campos a seguir para criar novo usuário' : 'Informe os campos a seguir para editar o usuário'} 
                     </Typography>
                 </Box>
@@ -149,6 +149,7 @@ export default function FormNewClient({
                             name="name"
                             label="Nome"
                             type="text"
+                            sx={{ color: 'text.common' }}
                               value={client.name}
                               onChange={handleClientChange}
                             fullWidth
@@ -159,6 +160,7 @@ export default function FormNewClient({
                             name="email"
                             label="E-mail"
                             type="text"
+                            sx={{ color: 'text.common' }}
                               value={client.email}
                               onChange={handleClientChange}
                             fullWidth
@@ -187,17 +189,18 @@ export default function FormNewClient({
                     <Box component="form" noValidate autoComplete="off">
                         <div>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                                <InputLabel id="demo-simple-select-label"  sx={{ color: 'text.common' }}>Status</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={client.status}
                                     label="Status"
                                     name='status'
+                                    sx={{ color: 'text.common' }}
                                     onChange={handleClientChange}
                                 >
                                     {statusCurrencies.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
+                                    <MenuItem key={option.value} value={option.value}  sx={{ color: 'text.common' }}>
                                         {option.label}
                                     </MenuItem>
                                 ))}
@@ -219,7 +222,8 @@ export default function FormNewClient({
                     size="large"
                     type="submit"
                     variant="contained"
-                    color="success"
+                    color="primary"
+                    className='btn-client'
                     onClick={handleSubmit}
                     sx={{ width: "45%" }}
                 >
@@ -231,7 +235,8 @@ export default function FormNewClient({
                     size="large"
                     type="submit"
                     variant="contained"
-                    color="success"
+                    color="primary"
+                    className='btn-client'
                    onClick={handleSubmitEdit}
                     sx={{ width: "45%" }}
                 >
@@ -242,7 +247,8 @@ export default function FormNewClient({
                     size="large"
                     type="submit"
                     variant="outlined"
-                    color="inherit"
+                    color="primary"
+                    className='btn-back'
                     sx={{ width: "45%" }}
                     onClick={handleBack}
                 >

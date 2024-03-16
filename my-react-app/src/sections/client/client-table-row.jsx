@@ -64,10 +64,10 @@ export default function ClientTable() {
           </Box>
           <Box width="15%">
             <Button
+            color="primary"
+            variant="outlined"
             className='btn-edit'
               fullWidth
-            //   className={classes.button}
-            //   color={primary.light}
             >
               Editar
             </Button>

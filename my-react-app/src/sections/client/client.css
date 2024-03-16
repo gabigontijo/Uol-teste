@@ -1,22 +1,16 @@
 :root {
-    --orange-btn: red;
+    --orange-btn: #E29933;
+    --orange-ligth-btn: #e0ad66;
   }
 
-.btn-edit{
-    color: var(--orange-btn);
-    background-color: transparent;
-    border: 1px solid var(--orange-btn);
-    border-radius: 5px;
-}
-
-.btn-edit:hover{
+.btn-edit:hover,
+.btn-back:hover{
     color: #ffffff;
     background-color: var(--orange-btn);;
 }
 
-.btn-client{
-    color: var(--orange-btn);
-    background-color: transparent;
-    border: 1px solid var(--orange-btn);
-    border-radius: 5px;
+.btn-client:hover{
+    color: #ffffff;
+    background-color: var(--orange-ligth-btn);;
 }
+

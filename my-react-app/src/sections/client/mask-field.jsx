@@ -11,7 +11,7 @@ export default function MaskFields({ mask, name, label, type, value, handleChang
       onChange={(event) => handleChange({ target: { name, value: event.target.value } })}
     >
       {(inputProps) => (
-        <TextField {...inputProps} name= {name} label={label} type={type} fullWidth />
+        <TextField {...inputProps} name= {name} label={label} type={type} fullWidth  sx={{ color: 'text.common' }}/>
       )}
     </InputMask>
   );
