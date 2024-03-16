@@ -1,5 +1,7 @@
 // ----------------------------------------------------------------------
 
+import { grey } from "@mui/material/colors";
+
 export function remToPx(value) {
     return Math.round(parseFloat(value) * 16);
   }
@@ -83,6 +85,7 @@ export function remToPx(value) {
     body1: {
       lineHeight: 1.5,
       fontSize: pxToRem(16),
+      color: grey[20],
     },
     body2: {
       lineHeight: 22 / 14,

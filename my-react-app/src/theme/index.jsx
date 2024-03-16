@@ -19,7 +19,6 @@ export default function ThemeProvider({ children }) {
       typography,
       shadows: shadows(),
       customShadows: customShadows(),
-      shape: { borderRadius: 8 },
     }),
     []
   );
