@@ -45,6 +45,24 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 		return nil, fmt.Errorf("cannot create a client without Status")
 	}
 
+	client, err := c.clientRepository.FindClientByCPF(ctx, createClient.CPF)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get client: %v", err)
+	}
+
+	if len(client) > 0 {
+		return nil, fmt.Errorf("failed, already exists client with the same cpf")
+	}
+
+	client, err = c.clientRepository.FindClientByEmail(ctx, createClient.Email)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get client: %v", err)
+	}
+
+	if len(client) > 0 {
+		return nil, fmt.Errorf("failed, already exists client with the same email")
+	}
+
 	clientEntity := &entities.Client{
 		Name:      createClient.Name,
 		Email:     createClient.Email,

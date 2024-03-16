@@ -42,6 +42,30 @@ func (d *clientRepository) FindClientByID(ctx context.Context, id int) (*entitie
 	return entity, err
 }
 
+func (d *clientRepository) FindClientByCPF(ctx context.Context, cpf string) ([]*entities.Client, error) {
+	var entity []*entities.Client
+
+	err := d.db.
+		Preload(clause.Associations).
+		Where("cpf = ?", cpf).
+		Limit(100).
+		Find(&entity).Error
+
+	return entity, err
+}
+
+func (d *clientRepository) FindClientByEmail(ctx context.Context, email string) ([]*entities.Client, error) {
+	var entity []*entities.Client
+
+	err := d.db.
+		Preload(clause.Associations).
+		Where("email = ?", email).
+		Limit(100).
+		Find(&entity).Error
+
+	return entity, err
+}
+
 func (d *clientRepository) ListClient(ctx context.Context) ([]*entities.Client, error) {
 	//TODO impl pagination
 	var entities []*entities.Client
