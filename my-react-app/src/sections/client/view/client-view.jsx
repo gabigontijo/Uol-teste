@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
+import { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -21,7 +21,6 @@ import FormNewClient from "../form-new-client";
 // import Scrollbar from 'src/components/scrollbar';
 
 import "../client.css";
-import { rows } from "../constants"
 import { clientInterface } from "./type";
 import { list } from '../../common/pagination'
 import { grey } from "../../../theme/palette";
@@ -49,8 +48,8 @@ export default function ClientPage() {
   const [messageAlert, setMessageAlert] = useState('');
   const [renderForm, setRenderForm] = useState(false);
   const [itemPerPage, setItemPerPage] = useState(5);
-  const [clientListPaginated, setClientListPaginated] = useState(list(rows, 1, itemPerPage));
-  const [clientList, setClientList] = useState(rows);
+  const [clientListPaginated, setClientListPaginated] = useState(list([], 1, itemPerPage));
+  const [clientList, setClientList] = useState([]);
   const [client, setClient] = useState(clientInterface);
   const { isLoading, refetch: refetchClients } = useQuery(
     "allClients",
@@ -58,6 +57,7 @@ export default function ClientPage() {
     {
       onSuccess: (response) => {
         setClientList(response.Clients);
+        setClientListPaginated(list(response.Clients, 1, itemPerPage))
       },
       onError: (error) => {
         console.error("Erro ao carregar clientes:", error);
@@ -74,6 +74,10 @@ export default function ClientPage() {
     setClient(clientInterface)
     setRenderForm(true);
   };
+
+  useEffect(() => {
+    setClientListPaginated(list(clientList, 1, itemPerPage))
+  }, [itemPerPage, clientList])
 
   return (
     <Container>
@@ -137,10 +141,10 @@ export default function ClientPage() {
             {isLoading && <CircularProgress />}
           </Stack>
           <ClientTable rows={clientListPaginated} onSubmit={(c) => handleClick(c)} />
-          <PaginationComponent 
-            currentPage={1} 
-            setClientList={setClientListPaginated} 
-            totalClients={clientList} 
+          <PaginationComponent
+            currentPage={1}
+            setClientList={setClientListPaginated}
+            totalClients={clientList}
             itemPerPage={itemPerPage}
             setItemPerPage={setItemPerPage}
           />

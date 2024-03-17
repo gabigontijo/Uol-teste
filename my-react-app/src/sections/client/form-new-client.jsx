@@ -60,7 +60,7 @@ export default function FormNewClient({
             console.log('Resposta da API:', response);
             setAlert(true);
             setMessageAlert('Cliente editado com sucesso');
-            refetchClients();
+            // refetchClients();
         } catch (error) {
             setAlertError(true);
             setMessageAlert('Erro ao Editar o cliente');

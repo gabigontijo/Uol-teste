@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from "prop-types";
+import { useMemo, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -19,7 +19,14 @@ export default function PaginationComponent({
     setItemPerPage,
 }) {
     const [page, setPage] = useState(currentPage);
-    const [count] = useState(Math.round(totalClients.length / itemPerPage));
+    const count = useMemo(() => {
+        const remainder = totalClients.length % itemPerPage
+        const division = Math.trunc(totalClients.length / itemPerPage)
+        if (remainder > 0){
+            return division + 1
+        }
+        return division
+    }, [totalClients, itemPerPage])
 
     const handleChange = (event, value) => {
         const pageClients = list(totalClients, value, itemPerPage)
@@ -47,7 +54,7 @@ export default function PaginationComponent({
                 </FormControl>
             </Box>
             <Box>
-                <Pagination count={count} page={page} onChange={handleChange} color="primary" />
+                <Pagination count={count === 0 ? 1 : count} page={page} onChange={handleChange} color="primary" />
             </Box>
         </Stack>
     )
