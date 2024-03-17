@@ -22,6 +22,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.8.0
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect

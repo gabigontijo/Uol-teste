@@ -3,17 +3,14 @@ package validator
 import (
 	"fmt"
 
-	"github.com/google/uuid"
+	"github.com/klassmann/cpfcnpj"
 )
 
-func ValidateUUId(id string, validateEmpty bool, fieldName string) error {
-	if len(id) > 0 {
-		_, err := uuid.Parse(id)
-		if err != nil {
-			return fmt.Errorf("%s is not valid UUID: %v", fieldName, err)
-		}
-	} else if validateEmpty {
-		return fmt.Errorf("%s cannot be empty", fieldName)
+func ValidateCPF(s string) error {
+	cpf := cpfcnpj.NewCPF(s)
+
+	if !cpf.IsValid() {
+		return fmt.Errorf("it is not a valid CPF: %v", cpf)
 	}
 	return nil
 }

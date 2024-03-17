@@ -44,22 +44,28 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 	if updateClient.Status == "" {
 		return nil, fmt.Errorf("failed status client is empty")
 	}
-	client, err := c.clientRepository.FindClientByCPF(ctx, updateClient.CPF)
+
+	originalClient, err := c.clientRepository.FindClientByID(ctx, updateClient.ID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get client: %v", err)
 	}
-
-	if len(client) > 0 {
-		return nil, fmt.Errorf("failed, already exists client with the same cpf")
+	if originalClient.Cpf != updateClient.CPF {
+		client, err := c.clientRepository.FindClientByCPF(ctx, updateClient.CPF)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get client: %v", err)
+		}
+		if len(client) > 0 {
+			return nil, fmt.Errorf("failed, already exists client with the same cpf")
+		}
 	}
-
-	client, err = c.clientRepository.FindClientByEmail(ctx, updateClient.Email)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get client: %v", err)
-	}
-
-	if len(client) > 0 {
-		return nil, fmt.Errorf("failed, already exists client with the same email")
+	if originalClient.Email != updateClient.Email {
+		client, err := c.clientRepository.FindClientByEmail(ctx, updateClient.Email)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get client: %v", err)
+		}
+		if len(client) > 0 {
+			return nil, fmt.Errorf("failed, already exists client with the same email")
+		}
 	}
 
 	clientEntity := &entities.Client{
