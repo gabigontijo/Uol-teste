@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-// import { useQuery } from "react-query";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -8,124 +7,89 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from "@mui/material/TextField";
 import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-// import Autocomplete from '@mui/material/Autocomplete';
-
 import Typography from "@mui/material/Typography";
+import FormControl from '@mui/material/FormControl';
 
 import MaskFields from "../common/mask-field";
 import { clientInterface } from './view/type';
-import { createClient } from '../../apis/client';
-// import SelectPixFields from '../common/input-select-pix';
-// import InputFileUpload from '../common/input-upload-file';
+import { statusCurrencies } from './constants'
+import { createClient, updateClient } from '../../apis/client';
 
 // ----------------------------------------------------------------------
-
-const statusCurrencies = [
-    {
-        value: 1,
-        label: "Ativo",
-    },
-    {
-        value: 2,
-        label: "Inativo",
-    },
-    {
-        value: 3,
-        label: "Aguardando ativação",
-    },
-    {
-        value: 4,
-        label: "Desativado",
-    },
-];
 
 export default function FormNewClient({
     setAlert,
     setAlertError,
-    setMessageError,
     setMessageAlert,
-    clientId,
-    setClientId,
     refetchClients,
     client,
     setClient,
     setRenderForm,
 }) {
 
-      const handleSubmit = async () => {
+    const handleSubmit = async () => {
         try {
-          await createClient(client);
-          setAlert(true);
-          setMessageAlert('Cliente cadastrado com sucesso');
-          setRenderForm(false);
-          setClient(clientInterface)
-          refetchClients();
-        console.log('state client', client)
+            await createClient(client);
+            setAlert(true);
+            setMessageAlert('Cliente cadastrado com sucesso');
+            setRenderForm(false);
+            setClient(clientInterface)
+            refetchClients();
+            console.log('state client', client)
         } catch (error) {
-        //   // eslint-disable-next-line no-debugger
-        //   debugger;
-          setAlertError(true);
-          setMessageError('Erro ao Cadastrar o cliente');
-          console.log('Erro ao Cadastrar o cliente:', error);
+            setAlertError(true);
+            setMessageAlert('Erro ao Cadastrar o cliente');
+            console.log('Erro ao Cadastrar o cliente:', error);
         }
-      };
+    };
 
-      const handleSubmitEdit = async () => {
-        // try {
-        //   // eslint-disable-next-line no-debugger
-        //   debugger;
-        //   const nonEmptyState = Object.fromEntries(
-        //     Object.entries(client).map(([key, value]) => [key, value || ''])
-        //   );
-        //   const bodyClientEdit = {
-        //     name: nonEmptyState.name,
-        //     pixType: nonEmptyState.pixType,
-        //     pixKey: nonEmptyState.pixKey,
-        //     partnerId: Number(nonEmptyState.partner.id),
-        //     phone: nonEmptyState.phone,
-        //     cpf: nonEmptyState.cpf,
-        //     documents: '',
-        //   };
-        //   const response = await updateClient(bodyClientEdit, clientId);
-        //   console.log('Resposta da API:', response);
-        //   setNewUser(false);
-        //   setClientId(null);
-        //   setAlert(true);
-        //   setMessageAlert('Cliente editado com sucesso');
-        //   setStateClient(clientInterface)
-        //   refetchClients();
-        // } catch (error) {
-        //   setAlertError(true);
-        //   setMessageError('Erro ao Editar o cliente');
-        //   setNewUser(true);
-        //   console.log('Erro ao Editar o cliente:', error);
-        // }
-      };
+    const handleSubmitEdit = async () => {
+        console.log('edit')
+        try {
+            const nonEmptyState = Object.fromEntries(
+                Object.entries(client).map(([key, value]) => [key, value || ''])
+            );
+            const bodyClientEdit = {
+                name: nonEmptyState.name,
+                email: nonEmptyState.email,
+                cpf: nonEmptyState.cpf,
+                phone: nonEmptyState.phone,
+                status: nonEmptyState.status,
+            };
+            const response = await updateClient(bodyClientEdit, nonEmptyState.id);
+            console.log('Resposta da API:', response);
+            setAlert(true);
+            setMessageAlert('Cliente editado com sucesso');
+            refetchClients();
+        } catch (error) {
+            setAlertError(true);
+            setMessageAlert('Erro ao Editar o cliente');
+            console.log('Erro ao Editar o cliente:', error);
+        }
+    };
 
     const handleBack = () => {
-        setClientId(null);
         setClient(clientInterface);
         setRenderForm(false);
     }
-
+    
     const handleClientChange = (event) => {
         const { name, value } = event.target;
         setClient({
-          ...client,
-          [name]: value,
+            ...client,
+            [name]: value,
         });
-      };
+    };
 
     return (
         <>
             <Stack spacing={{ xs: 1, sm: 2 }}>
                 <Box width="100%">
-                    <Typography mt={4} variant="subtitle1"  sx={{ color: 'text.secondary' }} >
-                       {clientId === null  ? 'Novo usário' : 'Editar usuário'} 
+                    <Typography mt={4} variant="subtitle1" sx={{ color: 'text.secondary' }} >
+                        {client === null ? 'Novo usário' : 'Editar usuário'}
                     </Typography>
-                    <Typography mb={4} variant="body1"  sx={{ color: 'text.common' }} >
-                    {clientId === null  ? 'Informe os campos a seguir para criar novo usuário' : 'Informe os campos a seguir para editar o usuário'} 
+                    <Typography mb={4} variant="body1" sx={{ color: 'text.common' }} >
+                        {client === null ? 'Informe os campos a seguir para criar novo usuário' : 'Informe os campos a seguir para editar o usuário'}
                     </Typography>
                 </Box>
                 <Stack direction="column" spacing={{ xs: 1, sm: 2 }} width="40%">
@@ -135,8 +99,8 @@ export default function FormNewClient({
                             label="Nome"
                             type="text"
                             sx={{ color: 'text.common' }}
-                              value={client.name}
-                              onChange={handleClientChange}
+                            value={client.name}
+                            onChange={handleClientChange}
                             fullWidth
                         />
                     </Box>
@@ -146,8 +110,8 @@ export default function FormNewClient({
                             label="E-mail"
                             type="text"
                             sx={{ color: 'text.common' }}
-                              value={client.email}
-                              onChange={handleClientChange}
+                            value={client.email}
+                            onChange={handleClientChange}
                             fullWidth
                         />
                     </Box>
@@ -157,8 +121,8 @@ export default function FormNewClient({
                             name="cpf"
                             label="CPF"
                             type="text"
-                          value={client.cpf}
-                          handleChange={handleClientChange}
+                            value={client.cpf}
+                            handleChange={handleClientChange}
                         />
                     </Box>
                     <Box width="100%">
@@ -167,14 +131,14 @@ export default function FormNewClient({
                             name="phone"
                             label="Telefone"
                             type="text"
-                          value={client.phone}
-                          handleChange={handleClientChange}
+                            value={client.phone}
+                            handleChange={handleClientChange}
                         />
                     </Box>
                     <Box component="form" noValidate autoComplete="off">
                         <div>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label"  sx={{ color: 'text.common' }}>Status</InputLabel>
+                                <InputLabel id="demo-simple-select-label" sx={{ color: 'text.common' }}>Status</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -185,10 +149,10 @@ export default function FormNewClient({
                                     onChange={handleClientChange}
                                 >
                                     {statusCurrencies.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}  sx={{ color: 'text.common' }}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
+                                        <MenuItem key={option.value} value={option.value} sx={{ color: 'text.common' }}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
                                 </Select>
                             </FormControl>
                         </div>
@@ -202,31 +166,31 @@ export default function FormNewClient({
                 mt={10}
                 width="40%"
             >
-                {clientId === null && ( 
-                <Button
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className='btn-client'
-                    onClick={handleSubmit}
-                    sx={{ width: "45%" }}
-                >
-                    Criar
-                </Button>
+                {client.id === undefined && (
+                    <Button
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className='btn-client'
+                        onClick={handleSubmit}
+                        sx={{ width: "45%" }}
+                    >
+                        Criar
+                    </Button>
                 )}
-                {clientId !== null && ( 
-                <Button
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className='btn-client'
-                   onClick={handleSubmitEdit}
-                    sx={{ width: "45%" }}
-                >
-                    Editar
-                </Button>
+                {client.id !== undefined && (
+                    <Button
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className='btn-client'
+                        onClick={handleSubmitEdit}
+                        sx={{ width: "45%" }}
+                    >
+                        Editar
+                    </Button>
                 )}
                 <Button
                     size="large"
@@ -247,10 +211,7 @@ export default function FormNewClient({
 FormNewClient.propTypes = {
     setAlert: PropTypes.func,
     setAlertError: PropTypes.func,
-    setMessageError: PropTypes.func,
     setMessageAlert: PropTypes.func,
-    setClientId: PropTypes.func,
-    clientId: PropTypes.any,
     refetchClients: PropTypes.func,
     client: PropTypes.any,
     setClient: PropTypes.func,
