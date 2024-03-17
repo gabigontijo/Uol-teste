@@ -6,5 +6,5 @@ type UpdateClientInput struct {
 	CPF    string `json:"cpf"`
 	Email  string `json:"email"`
 	Phone  string `json:"phone"`
-	Status string `json:"status"`
+	Status int    `json:"status"`
 }

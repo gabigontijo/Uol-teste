@@ -42,7 +42,6 @@ func (s *MyServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 			"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	}
 	if req.Method == "OPTIONS" {
-		rw.WriteHeader(204)
 		return
 	}
 	s.r.ServeHTTP(rw, req)

@@ -1,6 +1,6 @@
-import { apiFetch, getHeaders } from '..';
+import { apiFetch } from '..';
 
-const URlClients = '/clients';
+const URlClients = 'http://localhost:8080/clients';
 
 export const createClient = async (client) => {
   const apiOpts = {
@@ -31,7 +31,9 @@ export const updateClient = async (client, clientId) => {
   const apiOpts = {
     method: 'put',
     body: JSON.stringify(client),
-    headers: getHeaders({ 'Content-Type': 'application/json' }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   };
   const res = await apiFetch(`${URlClients}/${clientId}`, apiOpts);
   return res.json();

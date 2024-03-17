@@ -41,7 +41,7 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 		return nil, fmt.Errorf("failed phone client is empty")
 	}
 
-	if updateClient.Status == "" {
+	if updateClient.Status == 0 {
 		return nil, fmt.Errorf("failed status client is empty")
 	}
 
@@ -74,7 +74,7 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 		Email:     updateClient.Email,
 		Cpf:       updateClient.CPF,
 		Phone:     updateClient.Phone,
-		Status:    updateClient.Status,
+		Status:    fmt.Sprint(updateClient.Status),
 		UpdatedAt: time.Now(),
 	}
 

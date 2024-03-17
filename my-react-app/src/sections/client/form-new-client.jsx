@@ -35,7 +35,6 @@ export default function FormNewClient({
             setRenderForm(false);
             setClient(clientInterface)
             refetchClients();
-            console.log('state client', client)
         } catch (error) {
             setAlertError(true);
             setMessageAlert('Erro ao Cadastrar o cliente');
@@ -44,7 +43,6 @@ export default function FormNewClient({
     };
 
     const handleSubmitEdit = async () => {
-        console.log('edit')
         try {
             const nonEmptyState = Object.fromEntries(
                 Object.entries(client).map(([key, value]) => [key, value || ''])
@@ -54,13 +52,13 @@ export default function FormNewClient({
                 email: nonEmptyState.email,
                 cpf: nonEmptyState.cpf,
                 phone: nonEmptyState.phone,
-                status: nonEmptyState.status,
+                status: +nonEmptyState.status,
             };
-            const response = await updateClient(bodyClientEdit, nonEmptyState.id);
-            console.log('Resposta da API:', response);
+            await updateClient(bodyClientEdit, nonEmptyState.id);
             setAlert(true);
             setMessageAlert('Cliente editado com sucesso');
-            // refetchClients();
+            setRenderForm(false);
+            refetchClients();
         } catch (error) {
             setAlertError(true);
             setMessageAlert('Erro ao Editar o cliente');
