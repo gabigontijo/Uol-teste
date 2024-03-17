@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 
-// import TableBody from '@mui/material/TableBody';
 import Box from "@mui/material/Box";
-// import Card from '@mui/material/Card';
 import Stack from "@mui/material/Stack";
-// import Table from '@mui/material/Table';
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -16,7 +13,6 @@ import { allClients } from "src/apis/client";
 
 import ClientTable from "../client-table-row";
 import FormNewClient from "../form-new-client";
-// import TableContainer from '@mui/material/TableContainer';
 // import TablePagination from '@mui/material/TablePagination';
 
 // import AlertNotifications from 'src/layouts/dashboard/common/alert-notifications';
@@ -25,9 +21,13 @@ import FormNewClient from "../form-new-client";
 // import Scrollbar from 'src/components/scrollbar';
 
 import "../client.css";
+import { rows } from "../constants"
 import { clientInterface } from "./type";
+import { list } from '../../common/pagination'
 import { grey } from "../../../theme/palette";
+import PaginationComponent from "../pagination";
 import user from "../../../assets/images/user.png";
+import AlertNotifications from "../../common/alert-notification";
 
 // ----------------------------------------------------------------------
 
@@ -44,18 +44,13 @@ export default function ClientPage() {
 
   //   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  //   const [alert, setAlert] = useState(false);
-
-  //   const [alertError, setAlertError] = useState(false);
-
-  //   const [messageError, setMessageError] = useState('');
-
-  //   const [messageAlert, setMessageAlert] = useState('');
-  //   const [openDialog, setOpenDialog] = useState(false);
-
+  const [alert, setAlert] = useState(false);
+  const [alertError, setAlertError] = useState(false);
+  const [messageAlert, setMessageAlert] = useState('');
   const [renderForm, setRenderForm] = useState(false);
-  const [clientId, setClientId] = useState(null);
-  const [clientList, setClientList] = useState([]);
+  const [itemPerPage, setItemPerPage] = useState(5);
+  const [clientListPaginated, setClientListPaginated] = useState(list(rows, 1, itemPerPage));
+  const [clientList, setClientList] = useState(rows);
   const [client, setClient] = useState(clientInterface);
   const { isLoading, refetch: refetchClients } = useQuery(
     "allClients",
@@ -70,54 +65,13 @@ export default function ClientPage() {
     }
   );
 
-  //   const handleClick = (event, name, id) => {
-  //     const selectedIndex = selected.findIndex((item) => item.name === name);
-
-  //     let newSelected = [];
-
-  //     if (selectedIndex === -1) {
-  //       newSelected = [...selected, { name, id }];
-  //     } else {
-  //       newSelected = selected.filter((item) => item.name !== name);
-  //     }
-
-  //     setSelected(newSelected);
-  //   };
-
-  //   const handleChangePage = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
-
-  //   const handleChangeRowsPerPage = (event) => {
-  //     setPage(0);
-  //     setRowsPerPage(parseInt(event.target.value, 10));
-  //   };
-
-  //   const handleFilterByName = (event) => {
-  //     setPage(0);
-  //     setFilterName(event.target.value);
-  //   };
-
-  //   const handleAddUser = () => {
-  //     setNewUser(true);
-  //   };
-
-  //   const handleCloseAdd = () => {
-  //     setNewUser(false);
-  //     setClientId(null);
-  //     setStateClient(clientInterface);
-  //   };
-
-  //   const dataFiltered = applyFilter({
-  //     inputData: clientList,
-  //     comparator: getComparator(order, orderBy),
-  //     filterName,
-  //     field: 'name',
-  //   });
-
-  //   const notFound = !dataFiltered.length && !!filterName;
+  const handleClick = (c) => {
+    setClient(c)
+    setRenderForm(true)
+  }
 
   const handleNewClient = () => {
+    setClient(clientInterface)
     setRenderForm(true);
   };
 
@@ -182,19 +136,34 @@ export default function ClientPage() {
           >
             {isLoading && <CircularProgress />}
           </Stack>
-          <ClientTable />
+          <ClientTable rows={clientListPaginated} onSubmit={(c) => handleClick(c)} />
+          <PaginationComponent 
+            currentPage={1} 
+            setClientList={setClientListPaginated} 
+            totalClients={clientList} 
+            itemPerPage={itemPerPage}
+            setItemPerPage={setItemPerPage}
+          />
         </>
       ) : (
         <FormNewClient
           setRenderForm={setRenderForm}
           renderForm={renderForm}
-          clientId={clientId}
-          setClientId={setClientId}
           client={client}
           refetchClients={refetchClients}
           setClient={setClient}
+          setAlert={setAlert}
+          setAlertError={setAlertError}
+          setMessageAlert={setMessageAlert}
         />
       )}
+      <AlertNotifications
+        alert={alert}
+        setAlert={setAlert}
+        alertError={alertError}
+        setAlertError={setAlertError}
+        message={messageAlert}
+      />
     </Container>
   );
 }
