@@ -51,7 +51,7 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 	}
 
 	if len(client) > 0 {
-		return nil, fmt.Errorf("failed, already exists client with the same cpf")
+		return nil, fmt.Errorf("CPF já cadastrado")
 	}
 
 	client, err = c.clientRepository.FindClientByEmail(ctx, createClient.Email)
@@ -60,7 +60,7 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 	}
 
 	if len(client) > 0 {
-		return nil, fmt.Errorf("failed, already exists client with the same email")
+		return nil, fmt.Errorf("email já cadastrado")
 	}
 
 	clientEntity := &entities.Client{

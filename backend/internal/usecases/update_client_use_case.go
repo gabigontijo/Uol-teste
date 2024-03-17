@@ -55,7 +55,7 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 			return nil, fmt.Errorf("failed to get client: %v", err)
 		}
 		if len(client) > 0 {
-			return nil, fmt.Errorf("failed, already exists client with the same cpf")
+			return nil, fmt.Errorf("CPF ja cadastrado")
 		}
 	}
 	if originalClient.Email != updateClient.Email {
@@ -64,7 +64,7 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 			return nil, fmt.Errorf("failed to get client: %v", err)
 		}
 		if len(client) > 0 {
-			return nil, fmt.Errorf("failed, already exists client with the same email")
+			return nil, fmt.Errorf("email já cadastrado")
 		}
 	}
 
