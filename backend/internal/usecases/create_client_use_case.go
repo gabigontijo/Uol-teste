@@ -41,7 +41,7 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 		return nil, fmt.Errorf("cannot create a client without Phone")
 	}
 
-	if createClient.Status == "" {
+	if createClient.Status == 0 {
 		return nil, fmt.Errorf("cannot create a client without Status")
 	}
 
@@ -68,7 +68,7 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 		Email:     createClient.Email,
 		Cpf:       createClient.CPF,
 		Phone:     createClient.Phone,
-		Status:    createClient.Status,
+		Status:    fmt.Sprint(createClient.Status),
 		CreatedAt: time.Now(),
 	}
 
