@@ -27,6 +27,10 @@ export default function Router() {
       element: <Page404 />,
     },
     {
+      path: '/',
+      element: <Navigate to="/cliente" replace />,
+    },   
+     {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
