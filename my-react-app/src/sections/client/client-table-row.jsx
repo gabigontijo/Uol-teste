@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Icon } from '@iconify/react';
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -6,8 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { grey } from "../../theme/palette";
-import { colorStatus, enumStatus } from '../../utils/constants'
-import { Icon } from '@iconify/react';
+import { enumStatus, colorStatus } from '../../utils/constants'
 
 export default function ClientTable({
   rows,
