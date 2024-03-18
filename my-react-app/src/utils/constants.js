@@ -105,5 +105,11 @@ export const statusCurrencies = [
 
 export const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// eslint-disable-next-line prefer-regex-literals
 export const regexPhone =  /^(?!([0-9])\1{3})\(?([1-9]{2})\)?[-. ]?9?[0-9]{4}[-. ]?[0-9]{4}$/;
+
+export const colorStatus = {
+  ativo: "#49AD5B",
+  inativo: "#D73240",
+  aguardandoAtivacao: "#D4A710",
+  desativado: "#D2D2D2"
+}

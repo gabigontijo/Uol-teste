@@ -102,10 +102,10 @@ export default function FormNewClient({
             variant="subtitle1"
             sx={{ color: "text.secondary" }}
           >
-            {client === null ? "Novo usário" : "Editar usuário"}
+            {client.id === undefined ? "Novo usário" : "Editar usuário"}
           </Typography>
           <Typography mb={4} variant="body1" sx={{ color: "text.common" }}>
-            {client === null
+            {client.id === undefined
               ? "Informe os campos a seguir para criar novo usuário"
               : "Informe os campos a seguir para editar o usuário"}
           </Typography>

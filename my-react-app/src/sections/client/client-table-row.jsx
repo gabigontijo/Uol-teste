@@ -6,12 +6,28 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { grey } from "../../theme/palette";
-import { enumStatus } from '../../utils/constants'
+import { colorStatus, enumStatus } from '../../utils/constants'
+import { Icon } from '@iconify/react';
 
 export default function ClientTable({
   rows,
   onSubmit,
 }) {
+
+  const statusColor = (status) => {
+    switch (status) {
+      case "Ativo":
+        return colorStatus.ativo;
+      case "Inativo" :
+        return colorStatus.inativo;
+      case "Aguardando ativação":
+        return colorStatus.aguardandoAtivacao;
+      case "Desativado":
+        return colorStatus.desativado;
+      default:
+        return 'white'; 
+    }
+  }
 
   return (
     <div>
@@ -33,9 +49,12 @@ export default function ClientTable({
               {row.phone}
             </Typography>
           </Box>
-          <Box  width={{xs:'100%', md: '35%'}}>
-            <Typography variant="body1" sx={{ color: 'text.common' }}>{enumStatus[row.status]}</Typography>
+          <Box  width={{xs:'100%', md: '35%'}} display='flex' direction='column' alignItems='center'>
+          <Icon icon="tabler:circle-filled" color={statusColor(enumStatus[row.status])} />
+          <Typography variant="body1" ml={1} sx={{ color: 'text.common' }}>
+             {enumStatus[row.status]}</Typography>
           </Box>
+
           <Box width={{xs:'100%', md: '15%'}}>
             <Button
               onClick={() => onSubmit(row)}
