@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import Box from "@mui/material/Box";
@@ -12,8 +13,10 @@ import FormControl from "@mui/material/FormControl";
 
 import MaskFields from "../common/mask-field";
 import { clientInterface } from "./view/type";
-import { statusCurrencies } from "./constants";
+import { statusCurrencies } from "../../utils/constants";
 import { createClient, updateClient } from "../../apis/client";
+import { validatorFields } from "../../utils/validator-fields";
+
 
 // ----------------------------------------------------------------------
 
@@ -26,10 +29,14 @@ export default function FormNewClient({
   setClient,
   setRenderForm,
 }) {
+
+  const [fieldClass, setFieldClass] = useState({name: false, email: false, cpf: false, phone: false, status: false})
+
   const handleSubmit = async () => {
     try {
-      console.log(client);
-      console.log(typeof client.status);
+      if (!validatorFields(client, setMessageAlert, setAlertError, setFieldClass, setFieldClass)) {
+        return
+      }
       await createClient(client);
       setAlert(true);
       setMessageAlert("Cliente cadastrado com sucesso");
@@ -40,36 +47,32 @@ export default function FormNewClient({
       const textError = await error.json();
       const errorMessage = textError.message.split(": ")[1];
       setAlertError(true);
-      setMessageAlert(`Erro ao Cadastrar o cliente: ${errorMessage}`);
-      console.log("Erro ao Cadastrar o cliente:", errorMessage);
+      setMessageAlert(`${errorMessage}`);
     }
   };
 
   const handleSubmitEdit = async () => {
     try {
-      const nonEmptyState = Object.fromEntries(
-        Object.entries(client).map(([key, value]) => [key, value || ""])
-      );
       const bodyClientEdit = {
-        name: nonEmptyState.name,
-        email: nonEmptyState.email,
-        cpf: nonEmptyState.cpf,
-        phone: nonEmptyState.phone,
-        status: +nonEmptyState.status,
+        name: client.name,
+        email: client.email,
+        cpf: client.cpf,
+        phone: client.phone,
+        status: +client.status,
       };
-      await updateClient(bodyClientEdit, nonEmptyState.id);
+      if (!validatorFields(bodyClientEdit, setMessageAlert, setAlertError, setFieldClass, setFieldClass)) {
+        return
+      }
+      await updateClient(bodyClientEdit, client.id);
       setAlert(true);
       setMessageAlert("Cliente editado com sucesso");
       setRenderForm(false);
       refetchClients();
     } catch (error) {
-        console.log('erro updated', error)
       const textError = await error.json();
-      console.log('erro textError', textError.message)
       const errorMessage = textError.message.split(":")[1];
       setAlertError(true);
-      setMessageAlert(`Erro ao Editar o cliente: ${errorMessage}`);
-      console.log("Erro ao Editar o cliente:", errorMessage);
+      setMessageAlert(`${errorMessage}`);
     }
   };
 
@@ -84,6 +87,10 @@ export default function FormNewClient({
       ...client,
       [name]: value,
     });
+    setFieldClass({
+      ...fieldClass,
+      [name]: false,
+    })
   };
 
   return (
@@ -109,7 +116,7 @@ export default function FormNewClient({
               name="name"
               label="Nome"
               type="text"
-              sx={{ color: "text.common" }}
+              sx={{ color: "text.common", backgroundColor: fieldClass.name && 'rgba(233, 151, 151, 0.3)' }}
               value={client.name}
               onChange={handleClientChange}
               fullWidth
@@ -120,7 +127,7 @@ export default function FormNewClient({
               name="email"
               label="E-mail"
               type="text"
-              sx={{ color: "text.common" }}
+              sx={{ color: "text.common", backgroundColor: fieldClass.email && 'rgba(233, 151, 151, 0.3)' }}
               value={client.email}
               onChange={handleClientChange}
               fullWidth
@@ -129,29 +136,31 @@ export default function FormNewClient({
           <Box width="100%">
             <MaskFields
               mask="999.999.999-99"
-              name="cpf"
+              nameMask="cpf"
               label="CPF"
               type="text"
               value={client.cpf}
+              fieldClass={fieldClass}
               handleChange={handleClientChange}
             />
           </Box>
           <Box width="100%">
             <MaskFields
               mask="(99) 99999-9999"
-              name="phone"
+              nameMask="phone"
               label="Telefone"
               type="text"
               value={client.phone}
+              fieldClass={fieldClass}
               handleChange={handleClientChange}
             />
           </Box>
           <Box component="form" noValidate autoComplete="off">
             <div>
-              <FormControl fullWidth>
+              <FormControl fullWidth >
                 <InputLabel
                   id="demo-simple-select-label"
-                  sx={{ color: "text.common" }}
+                  sx={{ color: "text.common"}}
                 >
                   Status
                 </InputLabel>
@@ -161,7 +170,7 @@ export default function FormNewClient({
                   value={client.status}
                   label="Status"
                   name="status"
-                  sx={{ color: "text.common" }}
+                  sx={{backgroundColor: fieldClass.status && 'rgba(233, 151, 151, 0.3)' }}
                   onChange={handleClientChange}
                 >
                   {statusCurrencies.map((option) => (
