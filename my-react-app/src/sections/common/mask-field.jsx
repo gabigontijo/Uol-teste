@@ -3,15 +3,15 @@ import InputMask from 'react-input-mask';
 
 import TextField from '@mui/material/TextField';
 
-export default function MaskFields({ mask, name, label, type, value, handleChange }) {
+export default function MaskFields({ mask, nameMask, label, type, value, handleChange, fieldClass }) {
   return (
     <InputMask
       mask={mask}
       value={value}
-      onChange={(event) => handleChange({ target: { name, value: event.target.value } })}
+      onChange={(event) => handleChange({ target: { name: nameMask, value: event.target.value } })}
     >
       {(inputProps) => (
-        <TextField {...inputProps} name= {name} label={label} type={type} fullWidth  sx={{ color: 'text.common' }}/>
+        <TextField {...inputProps} name= {nameMask} label={label} type={type} fullWidth  sx={{ color: 'text.common', backgroundColor: fieldClass[nameMask] && 'rgba(233, 151, 151, 0.3)' }}/>
       )}
     </InputMask>
   );
@@ -19,9 +19,10 @@ export default function MaskFields({ mask, name, label, type, value, handleChang
 
 MaskFields.propTypes = {
   mask: PropTypes.string,
-  name: PropTypes.string,
+  nameMask: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any,
+  fieldClass: PropTypes.any,
   handleChange: PropTypes.func,
 };
