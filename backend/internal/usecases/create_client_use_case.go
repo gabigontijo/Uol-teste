@@ -10,6 +10,7 @@ import (
 	"github.com/gabigontijo/Uol-teste/internal/usecases/contracts"
 	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/input"
 	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/output"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/validator"
 )
 
 type createClientUseCase struct {
@@ -33,8 +34,9 @@ func (c *createClientUseCase) Execute(ctx context.Context, createClient *input.C
 		return nil, fmt.Errorf("cannot create a client without email")
 	}
 
-	if createClient.CPF == "" {
-		return nil, fmt.Errorf("cannot create a client without CPF")
+	err := validator.ValidateCPF(createClient.CPF)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create a client with ivalid CPF")
 	}
 
 	if createClient.Phone == "" {
