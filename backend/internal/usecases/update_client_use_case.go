@@ -10,6 +10,7 @@ import (
 	"github.com/gabigontijo/Uol-teste/internal/usecases/contracts"
 	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/input"
 	"github.com/gabigontijo/Uol-teste/internal/usecases/ports/output"
+	"github.com/gabigontijo/Uol-teste/internal/usecases/validator"
 )
 
 type updateClientUseCase struct {
@@ -33,8 +34,9 @@ func (c *updateClientUseCase) Execute(ctx context.Context, updateClient *input.U
 		return nil, fmt.Errorf("failed email client is empty")
 	}
 
-	if updateClient.CPF == "" {
-		return nil, fmt.Errorf("failed cpf client is empty")
+	err := validator.ValidateCPF(updateClient.CPF)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create a client with ivalid CPF")
 	}
 
 	if updateClient.Phone == "" {
