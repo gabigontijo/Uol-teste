@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-// import CloseIcon from '@mui/icons-material/Close';
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -13,12 +12,6 @@ import { allClients } from "src/apis/client";
 
 import ClientTable from "../client-table-row";
 import FormNewClient from "../form-new-client";
-// import TablePagination from '@mui/material/TablePagination';
-
-// import AlertNotifications from 'src/layouts/dashboard/common/alert-notifications';
-
-// import Iconify from 'src/components/iconify';
-// import Scrollbar from 'src/components/scrollbar';
 
 import "../client.css";
 import { clientInterface } from "./type";
@@ -31,18 +24,6 @@ import AlertNotifications from "../../common/alert-notification";
 // ----------------------------------------------------------------------
 
 export default function ClientPage() {
-  //   const [page, setPage] = useState(0);
-
-  //   const [order, setOrder] = useState('asc');
-
-  //   const [selected, setSelected] = useState([]);
-
-  //   const [orderBy, setOrderBy] = useState('name');
-
-  //   const [filterName, setFilterName] = useState('');
-
-  //   const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const [alert, setAlert] = useState(false);
   const [alertError, setAlertError] = useState(false);
   const [messageAlert, setMessageAlert] = useState('');

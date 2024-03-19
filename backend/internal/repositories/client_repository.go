@@ -67,7 +67,6 @@ func (d *clientRepository) FindClientByEmail(ctx context.Context, email string) 
 }
 
 func (d *clientRepository) ListClient(ctx context.Context) ([]*entities.Client, error) {
-	//TODO impl pagination
 	var entities []*entities.Client
 
 	err := d.db.
