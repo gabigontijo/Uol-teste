@@ -17,7 +17,6 @@ import { statusCurrencies } from "../../utils/constants";
 import { createClient, updateClient } from "../../apis/client";
 import { validatorFields } from "../../utils/validator-fields";
 
-
 // ----------------------------------------------------------------------
 
 export default function FormNewClient({
@@ -29,13 +28,26 @@ export default function FormNewClient({
   setClient,
   setRenderForm,
 }) {
-
-  const [fieldClass, setFieldClass] = useState({name: false, email: false, cpf: false, phone: false, status: false})
+  const [fieldClass, setFieldClass] = useState({
+    name: false,
+    email: false,
+    cpf: false,
+    phone: false,
+    status: false,
+  });
 
   const handleSubmit = async () => {
     try {
-      if (!validatorFields(client, setMessageAlert, setAlertError, setFieldClass, setFieldClass)) {
-        return
+      if (
+        !validatorFields(
+          client,
+          setMessageAlert,
+          setAlertError,
+          setFieldClass,
+          setFieldClass
+        )
+      ) {
+        return;
       }
       await createClient(client);
       setAlert(true);
@@ -60,8 +72,16 @@ export default function FormNewClient({
         phone: client.phone,
         status: +client.status,
       };
-      if (!validatorFields(bodyClientEdit, setMessageAlert, setAlertError, setFieldClass, setFieldClass)) {
-        return
+      if (
+        !validatorFields(
+          bodyClientEdit,
+          setMessageAlert,
+          setAlertError,
+          setFieldClass,
+          setFieldClass
+        )
+      ) {
+        return;
       }
       await updateClient(bodyClientEdit, client.id);
       setAlert(true);
@@ -90,7 +110,7 @@ export default function FormNewClient({
     setFieldClass({
       ...fieldClass,
       [name]: false,
-    })
+    });
   };
 
   return (
@@ -116,7 +136,10 @@ export default function FormNewClient({
               name="name"
               label="Nome"
               type="text"
-              sx={{ color: "text.common", backgroundColor: fieldClass.name && 'rgba(233, 151, 151, 0.3)' }}
+              sx={{
+                color: "text.common",
+                backgroundColor: fieldClass.name && "rgba(233, 151, 151, 0.3)",
+              }}
               value={client.name}
               onChange={handleClientChange}
               fullWidth
@@ -127,7 +150,10 @@ export default function FormNewClient({
               name="email"
               label="E-mail"
               type="text"
-              sx={{ color: "text.common", backgroundColor: fieldClass.email && 'rgba(233, 151, 151, 0.3)' }}
+              sx={{
+                color: "text.common",
+                backgroundColor: fieldClass.email && "rgba(233, 151, 151, 0.3)",
+              }}
               value={client.email}
               onChange={handleClientChange}
               fullWidth
@@ -157,10 +183,10 @@ export default function FormNewClient({
           </Box>
           <Box component="form" noValidate autoComplete="off">
             <div>
-              <FormControl fullWidth >
+              <FormControl fullWidth>
                 <InputLabel
                   id="demo-simple-select-label"
-                  sx={{ color: "text.common"}}
+                  sx={{ color: "text.common" }}
                 >
                   Status
                 </InputLabel>
@@ -170,7 +196,10 @@ export default function FormNewClient({
                   value={client.status}
                   label="Status"
                   name="status"
-                  sx={{backgroundColor: fieldClass.status && 'rgba(233, 151, 151, 0.3)' }}
+                  sx={{
+                    backgroundColor:
+                      fieldClass.status && "rgba(233, 151, 151, 0.3)",
+                  }}
                   onChange={handleClientChange}
                 >
                   {statusCurrencies.map((option) => (

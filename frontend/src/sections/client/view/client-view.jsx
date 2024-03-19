@@ -10,13 +10,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { allClients } from "src/apis/client";
 
-import ClientTable from "../client-table-row";
-import FormNewClient from "../form-new-client";
-
 import "../client.css";
 import { clientInterface } from "./type";
-import { list } from '../../common/pagination'
+import ClientTable from "../client-table-row";
 import { grey } from "../../../theme/palette";
+import FormNewClient from "../form-new-client";
+import { list } from "../../common/pagination";
 import PaginationComponent from "../pagination";
 import user from "../../../assets/images/user.png";
 import AlertNotifications from "../../common/alert-notification";
@@ -26,10 +25,12 @@ import AlertNotifications from "../../common/alert-notification";
 export default function ClientPage() {
   const [alert, setAlert] = useState(false);
   const [alertError, setAlertError] = useState(false);
-  const [messageAlert, setMessageAlert] = useState('');
+  const [messageAlert, setMessageAlert] = useState("");
   const [renderForm, setRenderForm] = useState(false);
   const [itemPerPage, setItemPerPage] = useState(5);
-  const [clientListPaginated, setClientListPaginated] = useState(list([], 1, itemPerPage));
+  const [clientListPaginated, setClientListPaginated] = useState(
+    list([], 1, itemPerPage)
+  );
   const [clientList, setClientList] = useState([]);
   const [client, setClient] = useState(clientInterface);
   const { isLoading, refetch: refetchClients } = useQuery(
@@ -38,7 +39,7 @@ export default function ClientPage() {
     {
       onSuccess: (response) => {
         setClientList(response.Clients);
-        setClientListPaginated(list(response.Clients, 1, itemPerPage))
+        setClientListPaginated(list(response.Clients, 1, itemPerPage));
       },
       onError: (error) => {
         console.error("Erro ao carregar clientes:", error);
@@ -47,18 +48,18 @@ export default function ClientPage() {
   );
 
   const handleClick = (c) => {
-    setClient(c)
-    setRenderForm(true)
-  }
+    setClient(c);
+    setRenderForm(true);
+  };
 
   const handleNewClient = () => {
-    setClient(clientInterface)
+    setClient(clientInterface);
     setRenderForm(true);
   };
 
   useEffect(() => {
-    setClientListPaginated(list(clientList, 1, itemPerPage))
-  }, [itemPerPage, clientList])
+    setClientListPaginated(list(clientList, 1, itemPerPage));
+  }, [itemPerPage, clientList]);
 
   return (
     <Container>
@@ -121,7 +122,10 @@ export default function ClientPage() {
           >
             {isLoading && <CircularProgress />}
           </Stack>
-          <ClientTable rows={clientListPaginated} onSubmit={(c) => handleClick(c)} />
+          <ClientTable
+            rows={clientListPaginated}
+            onSubmit={(c) => handleClick(c)}
+          />
           <PaginationComponent
             currentPage={1}
             setClientList={setClientListPaginated}
